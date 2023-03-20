@@ -18,10 +18,20 @@ class MovieModel {
     return MovieModel(
       title: json['title'],
       id: json['id'],
-      releaseDate: json['release_date'],
+      releaseDate: json['release_date'] as String,
       posterPath: json['poster_path'],
       rating: json['vote_average'].toDouble(),
       overview: json['overview'],
     );
   }
+
+  Map<String, dynamic> toJson() => {
+    'title': title,
+    'id': id,
+    'releaseDate': DateTime.parse(releaseDate),
+    'posterPath' : posterPath,
+    'rating': rating,
+    'overview': overview,
+  };
+
 }
