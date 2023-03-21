@@ -68,9 +68,7 @@ ListView buildMovieListView(
           ),
         );
       }
-      else {
-        return const Center(child: CircularProgressIndicator(),);
-      }
+
     },
   );
 }

@@ -10,6 +10,10 @@ class MaxPageState {
   MaxPageState({required this.maxPage});
 }
 
+class SearchState {
+  
+}
+
 class PageCubit extends Cubit<PageState> {
   PageCubit() : super(PageState(page: 1));
 

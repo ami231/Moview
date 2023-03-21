@@ -4,6 +4,7 @@ import 'package:moview/bloc/movies_bloc.dart';
 import 'package:moview/bloc/movies_state.dart';
 import 'package:moview/components/bottomNavigationBar_widget.dart';
 import 'package:moview/components/buildMovieListView_widget.dart';
+import 'package:moview/services/load_favorites.dart';
 
 class FavoritesPage extends StatefulWidget {
   const FavoritesPage({Key? key}) : super(key: key);
@@ -14,6 +15,12 @@ class FavoritesPage extends StatefulWidget {
 
 class _FavoritesPageState extends State<FavoritesPage> {
   bool isHomePage = false;
+
+  @override
+  void initState() {
+    loadFavorites(context);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

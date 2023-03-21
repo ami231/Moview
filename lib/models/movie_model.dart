@@ -6,13 +6,15 @@ class MovieModel {
   final double rating;
   final String overview;
 
-  MovieModel(
-      {required this.title,
-      required this.id,
-      required this.releaseDate,
-      required this.posterPath,
-      required this.rating,
-      required this.overview});
+
+  MovieModel({
+    required this.title,
+    required this.id,
+    required this.releaseDate,
+    required this.posterPath,
+    required this.rating,
+    required this.overview,
+  });
 
   factory MovieModel.fromJson(Map<String, dynamic> json) {
     return MovieModel(
@@ -26,12 +28,11 @@ class MovieModel {
   }
 
   Map<String, dynamic> toJson() => {
-    'title': title,
-    'id': id,
-    'releaseDate': DateTime.parse(releaseDate),
-    'posterPath' : posterPath,
-    'rating': rating,
-    'overview': overview,
-  };
-
+        'title': title,
+        'id': id,
+        'release_date': releaseDate,
+        'poster_path': posterPath,
+        'rating': rating,
+        'overview': overview,
+      };
 }

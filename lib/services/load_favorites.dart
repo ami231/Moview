@@ -12,7 +12,7 @@ void loadFavorites(context) async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   List<String> favoriteStrings = prefs.getStringList(localList) ?? [];
   for (var element in favoriteStrings) {
-    MovieModel movie = MovieModel.fromJson(jsonDecode(element));
+    MovieModel movie = MovieModel.fromJson(element);
     favoritesBloc.add(AddToFavoritesEvent(movie));
   }
 }
