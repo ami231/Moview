@@ -18,17 +18,7 @@ ListView buildMovieListView(
     ),
     itemCount: length + 1,
     itemBuilder: (BuildContext context, int index) {
-      if (state is MoviesLoading) {
-        return const Center(
-          child: CircularProgressIndicator(),
-        );
-      }
-      else if (state is MoviesError) {
-        return const Center(
-          child: Text('Something went wrong'),
-        );
-      }
-      else if (index != length) {
+      if (index != length) {
         final movie = list[index];
         final posterPath = movie.posterPath;
         final title = movie.title;
@@ -42,7 +32,7 @@ ListView buildMovieListView(
             onPressed: () {
               favoriteAction(state: state, movie: movie, context: context);
             },
-            icon: state.favoritesList.contains(movie)
+            icon: isFavorite(movieId: movie.id, favoritesList: state.favoritesList)
                 ? const Icon(
                     CupertinoIcons.heart_fill,
                     color: Colors.purpleAccent,
@@ -55,8 +45,7 @@ ListView buildMovieListView(
             Navigator.pushNamed(context, '/MovieDetailPage', arguments: movie);
           },
         );
-      }
-      else if (isHomePage && list.isNotEmpty) {
+      } else if (isHomePage && list.isNotEmpty) {
         return TextButton(
           onPressed: () {
             BlocProvider.of<PageCubit>(context).nextPage();
@@ -68,7 +57,6 @@ ListView buildMovieListView(
           ),
         );
       }
-
     },
   );
 }
@@ -81,4 +69,13 @@ void favoriteAction({state, movie, context}) {
     BlocProvider.of<MoviesBloc>(context).add(RemoveFromFavoritesEvent(movie));
     removeItemFromList(movie);
   }
+}
+
+bool isFavorite({movieId, favoritesList}) {
+  for (MovieModel movie in favoritesList) {
+    if (movieId == movie.id) {
+      return true;
+    }
+  }
+  return false;
 }

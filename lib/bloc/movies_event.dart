@@ -61,3 +61,13 @@ class LoadMoviesEvent extends MoviesEvent {
     throw UnimplementedError();
   }
 }
+
+class NoInternetEvent extends MoviesEvent {
+  @override
+
+  @override
+  moviesEvent() {
+    // TODO: implement moviesEvent
+    throw UnimplementedError();
+  }
+}

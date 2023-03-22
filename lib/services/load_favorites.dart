@@ -8,11 +8,14 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../bloc/movies_bloc.dart';
 
 void loadFavorites(context) async {
-  final favoritesBloc = BlocProvider.of<MoviesBloc>(context);
+  final moviesBloc = BlocProvider.of<MoviesBloc>(context);
   SharedPreferences prefs = await SharedPreferences.getInstance();
   List<String> favoriteStrings = prefs.getStringList(localList) ?? [];
-  for (var element in favoriteStrings) {
-    MovieModel movie = MovieModel.fromJson(element);
-    favoritesBloc.add(AddToFavoritesEvent(movie));
+  List mapList = favoriteStrings.map((item) => jsonDecode(item)).toList();
+  for (var element in mapList) {
+    Map<String, dynamic> decodedJson = jsonDecode(element);
+    MovieModel movie = MovieModel.fromJson(decodedJson);
+    moviesBloc.add(AddToFavoritesEvent(movie));
   }
+  print(moviesBloc.state.favoritesList);
 }

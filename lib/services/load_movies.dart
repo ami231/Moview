@@ -6,17 +6,24 @@ import '../bloc/movies_bloc.dart';
 import '../constants/api.dart';
 import '../models/movie_model.dart';
 
-void loadMovies(context) async {
+
+Future<Response> fetchApiData(context) async {
   final dio = Dio();
-  final favoritesBloc = BlocProvider.of<MoviesBloc>(context);
   final page = BlocProvider.of<PageCubit>(context).state.page;
   final response = await dio.get('$apiUrl$apiKey$apiInfo$page');
-  if (response.statusCode == 200) {
-    await response.data['results'].forEach((element) {
-      final movie = MovieModel.fromJson(element);
-      favoritesBloc.add(AddToAllMoviesEvent(movie));
-    });
-    int maxPage = await response.data['total_pages'];
-    BlocProvider.of<MaxPageCubit>(context).updateMaxPage(maxPage);
-  }
+  return response;
 }
+
+Future<List<MovieModel>> loadMovies(response, context) async {
+  List<MovieModel> moviesList = [];
+  final moviesBloc = BlocProvider.of<MoviesBloc>(context);
+  await response.data['results'].forEach((element) {
+    final movie = MovieModel.fromJson(element);
+    moviesList.add(movie);
+    //moviesBloc.add(AddToAllMoviesEvent(movie));
+  });
+  int maxPage = await response.data['total_pages'];
+  BlocProvider.of<MaxPageCubit>(context).updateMaxPage(maxPage);
+  return moviesList;
+}
+

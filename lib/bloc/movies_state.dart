@@ -21,9 +21,14 @@ class MoviesLoaded extends MoviesState {
 }
 
 class MoviesLoading extends MoviesState {
-  const MoviesLoading(List<MovieModel> favoritesList, List<MovieModel> allMoviesList) : super(favoritesList, allMoviesList);
+  MoviesLoading() : super([], []);
 }
 
 class MoviesError extends MoviesState {
-  const MoviesError(List<MovieModel> favoritesList, List<MovieModel> allMoviesList) : super(favoritesList, allMoviesList);
+  MoviesError() : super([], []);
+
+}
+
+class MoviesNoInternetState extends MoviesState {
+  MoviesNoInternetState() : super([], []);
 }

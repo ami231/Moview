@@ -42,12 +42,21 @@ class MoviesBloc extends Bloc<MoviesEvent, MoviesState> {
   }
 
   Stream<MoviesState> _mapLoadMovies(LoadMoviesEvent event) async* {
-    yield MoviesLoading(state.favoritesList, state.allMoviesList);
-    try {
-      loadMovies(event.context);
-      yield MoviesLoaded(state.favoritesList, state.allMoviesList);
-    } catch (e) {
-      yield MoviesError(state.favoritesList, state.allMoviesList);
+    yield MoviesLoading();
+    final response = await fetchApiData(event.context);
+    if (response.statusCode == 200) {
+      try {
+        final movieList = await loadMovies(response, event.context);
+        yield MoviesLoaded(state.favoritesList, movieList);
+        print('from bloc');
+        print(state.allMoviesList);
+      } catch (_) {
+        yield MoviesError();
+      }
+    }
+    else if (response.statusCode == 404) {
+      yield MoviesError();
+
     }
   }
 }
