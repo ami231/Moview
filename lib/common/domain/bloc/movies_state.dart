@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:moview/models/movie_model.dart';
+import 'package:moview/common/data/models/movie_model.dart';
 
 abstract class MoviesState extends Equatable {
   final List<MovieModel> favoritesList;

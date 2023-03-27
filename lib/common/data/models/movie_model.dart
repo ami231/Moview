@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 class MovieModel {
   final String title;
   final int id;
@@ -5,6 +7,7 @@ class MovieModel {
   final String posterPath;
   final double rating;
   final String overview;
+  final List<int> genreIds;
 
 
   MovieModel({
@@ -14,6 +17,7 @@ class MovieModel {
     required this.posterPath,
     required this.rating,
     required this.overview,
+    required this.genreIds,
   });
 
   factory MovieModel.fromJson(Map<String, dynamic> json) {
@@ -24,6 +28,7 @@ class MovieModel {
       posterPath: json['poster_path'],
       rating: json['vote_average'].toDouble(),
       overview: json['overview'],
+      genreIds: json['genre_ids'].cast<int>(),
     );
   }
 
@@ -34,5 +39,6 @@ class MovieModel {
         'poster_path': posterPath,
         'rating': rating,
         'overview': overview,
+        'genre_ids': genreIds,
       };
 }

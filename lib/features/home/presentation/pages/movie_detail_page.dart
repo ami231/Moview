@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:moview/constants/api.dart';
-import 'package:moview/models/movie_model.dart';
+import 'package:moview/common/data/constants/api.dart';
+import 'package:moview/common/data/models/movie_model.dart';
 
 class MovieDetailPage extends StatefulWidget {
+  static const String title = 'MovieDetailPage';
+
   const MovieDetailPage({
     Key? key,
   }) : super(key: key);
@@ -21,7 +23,10 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
     final overview = movie.overview;
 
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+      ),
       body: Padding(
         padding: const EdgeInsets.only(bottom: 200, left: 20, right: 20, top: 30),
         child: Wrap(

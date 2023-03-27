@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:moview/models/movie_model.dart';
+import 'package:moview/common/data/models/movie_model.dart';
 
 abstract class MoviesEvent extends Equatable {
   moviesEvent();
@@ -64,10 +64,7 @@ class LoadMoviesEvent extends MoviesEvent {
 
 class NoInternetEvent extends MoviesEvent {
   @override
-
-  @override
   moviesEvent() {
-    // TODO: implement moviesEvent
     throw UnimplementedError();
   }
 }

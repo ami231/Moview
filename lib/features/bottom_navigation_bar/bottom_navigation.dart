@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:moview/features/favorites/presentation/pages/favorites_page.dart';
 
 BottomAppBar bottomNavBar(context,bool isHomePage) {
   return BottomAppBar(
@@ -28,7 +29,7 @@ BottomAppBar bottomNavBar(context,bool isHomePage) {
           height: 50,
           child: IconButton(
               onPressed: () {
-                Navigator.pushNamed(context, '/FavoritesPage',);
+                Navigator.pushNamed(context, FavoritesPage.title,);
               },
               icon: Icon(CupertinoIcons.heart_fill, color: isHomePage ? Colors.white : Colors.purpleAccent,)),
         )

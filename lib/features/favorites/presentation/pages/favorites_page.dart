@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:moview/bloc/movies_bloc.dart';
-import 'package:moview/bloc/movies_state.dart';
-import 'package:moview/components/bottomNavigationBar_widget.dart';
-import 'package:moview/components/buildMovieListView_widget.dart';
-import 'package:moview/services/load_favorites.dart';
+import 'package:moview/common/domain/bloc/movies_bloc.dart';
+import 'package:moview/common/domain/bloc/movies_state.dart';
+import 'package:moview/features/bottom_navigation_bar/bottom_navigation.dart';
+import 'package:moview/features/home/presentation/widgets/movie_listview_widget.dart';
 
 class FavoritesPage extends StatefulWidget {
+  static const String title = 'FavoritesPage';
+
   const FavoritesPage({Key? key}) : super(key: key);
 
   @override
@@ -17,12 +18,6 @@ class _FavoritesPageState extends State<FavoritesPage> {
   bool isHomePage = false;
 
   @override
-  void initState() {
-    loadFavorites(context);
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     final favoritesBloc = BlocProvider.of<MoviesBloc>(context);
     return Scaffold(
@@ -31,12 +26,16 @@ class _FavoritesPageState extends State<FavoritesPage> {
         title: const Text('Favorites'),
       ),
       body: BlocBuilder<MoviesBloc, MoviesState>(builder: (context, state) {
-        return buildMovieListView(
-          state: state,
-          list: favoritesBloc.state.favoritesList,
-          length: favoritesBloc.state.favoritesList.length,
-          isHomePage: isHomePage,
-        );
+        return favoritesBloc.state.favoritesList.isEmpty
+            ? const Center(
+                child: Text('No favorites yet'),
+              )
+            : buildMovieListView(
+                state: state,
+                list: favoritesBloc.state.favoritesList,
+                length: favoritesBloc.state.favoritesList.length,
+                isHomePage: isHomePage,
+                context: context);
       }),
       bottomNavigationBar: bottomNavBar(context, isHomePage),
     );

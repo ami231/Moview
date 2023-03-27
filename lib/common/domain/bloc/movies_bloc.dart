@@ -1,8 +1,8 @@
-import 'package:bloc/bloc.dart';
-import 'package:moview/bloc/movies_event.dart';
-import 'package:moview/bloc/movies_state.dart';
-import 'package:moview/models/movie_model.dart';
-import 'package:moview/services/load_movies.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:moview/common/domain/bloc/movies_event.dart';
+import 'package:moview/common/domain/bloc/movies_state.dart';
+import 'package:moview/common/data/models/movie_model.dart';
+import 'package:moview/common/data/models/load_movies.dart';
 
 
 class MoviesBloc extends Bloc<MoviesEvent, MoviesState> {
@@ -46,17 +46,16 @@ class MoviesBloc extends Bloc<MoviesEvent, MoviesState> {
     final response = await fetchApiData(event.context);
     if (response.statusCode == 200) {
       try {
-        final movieList = await loadMovies(response, event.context);
-        yield MoviesLoaded(state.favoritesList, movieList);
-        print('from bloc');
-        print(state.allMoviesList);
+        final newMovies = await loadMovies(response, event.context);
+        final List<MovieModel> updatedMovies = state.allMoviesList;
+        updatedMovies.addAll(newMovies);
+        yield MoviesLoaded(state.favoritesList, updatedMovies);
       } catch (_) {
         yield MoviesError();
       }
     }
     else if (response.statusCode == 404) {
       yield MoviesError();
-
     }
   }
 }
