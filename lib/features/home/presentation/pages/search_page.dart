@@ -38,7 +38,7 @@ class _SearchPageState extends State<SearchPage> {
 
             int genreId = genres.keys.firstWhere((key) => genres[key] == genreCubit.state.genre);
 
-            List<MovieModel> filteredList = searchList.where((element)
+            List<MovieModel> filteredList = genreId == 0 ? searchList : searchList.where((element)
             =>
             element
                 .genreIds

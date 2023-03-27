@@ -6,7 +6,7 @@ class GenreState {
 }
 
 class GenreCubit extends Cubit<GenreState> {
-  GenreCubit() : super(GenreState(genre: ''));
+  GenreCubit() : super(GenreState(genre: 'All'));
 
   void updateGenre({required String newGenre}) {
     emit(GenreState(genre: newGenre));
